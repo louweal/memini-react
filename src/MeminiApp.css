@@ -1,0 +1,41 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+
+* {
+    box-sizing: border-box; 
+    margin: 0;
+}
+
+html, body {
+    padding: 0em; 
+    background-color: #fff;
+    font: 16px Montserrat;
+    background-color: #ededed;
+}
+
+ul {
+    padding: 0;
+    color: var(--dgrey);
+}
+
+.lists {
+    display: flex;
+    justify-content: stretch;
+    align-items: stretch;
+    max-width: 90%;
+    border: 0px solid gold;
+    padding-top: 100px;
+    margin: 0 auto;
+}
+
+.list {
+    flex-grow: 1;
+    flex-shrink: 1;
+    border: 0px solid gold;
+    flex-basis: 24%;
+}
+
+.list + .list {
+    margin-left: 2%;
+}
+
+/* vanaf width 1000px media */

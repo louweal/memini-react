@@ -1,0 +1,50 @@
+ /* Customize the label (the container) */
+ .container {
+    display: inline-block;
+    position: relative;
+    margin-bottom: 12px;
+    cursor: pointer;
+    font-size: 22px;
+    width: 15.5px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+/* Hide the browser's default radio button */
+.container input {
+    /* position: absolute; */
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+/* Create a custom radio button */
+.checkmark {
+    display: inline-block;
+    position: absolute;
+    top: 6px;
+    left: 0;
+    height: 12px;
+    width: 12px;
+    background-color: #a79b8e;
+    border-radius: 50%;
+    opacity: 0.5;
+}
+
+/* When the radio button is checked, add a blue background */
+.container .checkmark-cat1 { background-color: #d81b60 }
+.container .checkmark-cat2 { background-color: #c0ca33 }
+.container .checkmark-cat3 { background-color: #a79b8e }
+.container .checkmark-cat4 { background-color: #0b8043}
+.container .checkmark-cat5 { background-color: #9e69af}
+.container .checkmark-cat6 { background-color: #f6bf26}
+
+.container input:checked ~ .checkmark {
+    /* transform: scaleY(1.6); */
+    border: 3px solid rgba(1,.5,.5,.2);
+    opacity: 1;
+}
+
