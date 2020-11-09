@@ -1,12 +1,20 @@
 import React, {Component} from 'react';
-
+import PropTypes from 'prop-types'
 class Task extends Component {
+    static defaultProps = {
+        onDelete() {}
+    }
+
+    static propTypes = {
+        id: PropTypes.number.isRequired,
+        title: PropTypes.string.isRequired,
+        category: PropTypes.string.isRequired,
+        onDelete: PropTypes.func.isRequired
+    }
+
     constructor(props) {
         super(props);
-        this.state = {
-
-        }
-
+        this.state = {}
         this.handleChange = this.handleChange.bind(this);
     }
 
@@ -16,17 +24,16 @@ class Task extends Component {
 
     render() {
 
-        const {title} = this.props;
-        const {category} = this.props;
-
+        const {id, title, category, onDelete} = this.props;
+        
         return (
             <li className="task">
                 <div className="task-head">
                     <div className={`task-category ${category}`}>
                     </div>
                     <div className="task-actions">
-                        <i className="fas fa-check task-done"></i>
-                        <i className="fas fa-trash-alt task-delete"></i>
+                        <span className="remove-task" onClick={() => {onDelete(id)}}><i className="fas fa-check task-done"></i></span>
+                        <span className="remove-task" onClick={() => {onDelete(id)}}><i className="fas fa-trash-alt task-delete"></i></span>
                     </div>
                 </div>
                 <input

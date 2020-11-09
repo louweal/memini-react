@@ -1,11 +1,17 @@
+.input-area {
+    background-color: white;
+    border: 1px dotted grey;
+    padding: 12px 16px;
+    margin: 18px auto;
+}
+ 
  /* Customize the label (the container) */
  .container {
     display: inline-block;
     position: relative;
-    margin-bottom: 12px;
     cursor: pointer;
     font-size: 22px;
-    width: 15.5px;
+    min-width: 15.5px;
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
@@ -31,7 +37,8 @@
     width: 12px;
     background-color: #a79b8e;
     border-radius: 50%;
-    opacity: 0.5;
+    border: 3px solid transparent;
+    opacity: 0.7;
 }
 
 /* When the radio button is checked, add a blue background */
@@ -42,9 +49,60 @@
 .container .checkmark-cat5 { background-color: #9e69af}
 .container .checkmark-cat6 { background-color: #f6bf26}
 
-.container input:checked ~ .checkmark {
-    /* transform: scaleY(1.6); */
-    border: 3px solid rgba(1,.5,.5,.2);
+.container input:checked ~ .checkmark { 
     opacity: 1;
 }
 
+/* input head */
+
+.input-head {
+    display: flex;
+    justify-content: space-between;
+}
+
+.close-input {
+    color: grey;
+    padding: 3px 3px 0 6px;
+}
+
+.close-input:hover {
+    color: red;
+    cursor: pointer;
+}
+
+.selected-category {
+    width: 91px;
+    height: 10px;
+    border-radius: 6px;
+    margin: 12px 0 10px 0;
+    background-color: #a79b8e;
+    opacity: .9;
+}
+
+/* text input */
+
+
+.input-area input[type="text"] {
+    padding: 4px 0px; 
+    border: none;
+    outline: none; 
+    font-size: 18px;
+    font-weight: 500;
+    color: black;
+    width: 75%;
+}
+
+.input-area button[type="submit"] {
+    display: inline-block;
+    background: grey;
+    padding: 6px 8px;
+    margin: 0;
+    color: white;
+    font-weight: bold;
+    border-radius: 5px;
+    border: none;
+    float: right;
+}
+.input-area button[type="submit"]:hover {
+    cursor: pointer;
+}
