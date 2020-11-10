@@ -7,22 +7,124 @@ class MeminiApp extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      lists: ["Today", "Tomorrow", "Upcoming", "Someday"]
+      lists: [{
+        id: 0,
+        listname: "Today",
+        tasks: [{
+          id: 0,
+          title: "Fix React",
+          category: "cat1",
+          //onDelete
+        }],
+        nextTaskId: 1,
+        showInput: false
+      },
+      {
+        id: 1,
+        listname: "Tomorrow",
+        tasks: [{
+          id: 0,
+          title: "Make MasterMind Game",
+          category: "cat1",
+          //onDelete
+        },
+        {
+          id: 1,
+          title: "Eat",
+          category: "cat3",
+          //onDelete
+        }],
+        nextTaskId: 2,
+        showInput: false
+      },
+      {
+        id: 2,
+        listname: "Upcoming",
+        tasks: [],
+        nextTaskId: 0,
+        showInput: false
+      },
+      {
+        id: 3,
+        listname: "Someday",
+        tasks: [],
+        nextTaskId: 0,
+        showInput: false
+      }]
     }
+    this.handleSave = this.handleSave.bind(this);
+    this.onDelete = this.onDelete.bind(this);
+    this.updateListInState = this.updateListInState.bind(this);
+    this.toggleInput = this.toggleInput.bind(this);
+  }
+ 
+  handleSave(listId, task) {
+    // copy old list
+    const listCopy = {...this.state.lists[listId]};
+    // add the id to the task
+    const newTask = {...task, id: listCopy.nextTaskId}
+    // append the new task its task
+    const curTasks = [...listCopy.tasks, newTask];
+    // update list
+    const updatedList = {
+      ...listCopy, 
+      tasks: curTasks,
+      nextTaskId: listCopy.nextTaskId+1, 
+      showInput: false
+    };
+    this.updateListInState(listId, updatedList);
   }
 
-  render() {
+  updateListInState(listId, updatedList) {
+    // find index of list with this listId
+    var index = this.state.lists.findIndex(x => x.id === listId);
+    // make deep copy of state
+    var lists = [...this.state.lists];
+    // remove old list from copied state
+    lists.splice(index, 1);
+    // insert the updated list at its index position
+    lists.splice(index, 0, updatedList);
+    // set the real state
+    this.setState({lists});
+  }
+
+  onDelete(listId, id) {
+    // store list that has to be modified (deep copy)
+    const listCopy = {...this.state.lists[listId]};
+    // remove its task
+    const curTasks = listCopy.tasks.filter(task => task.id !== id);
+    // update list
+    const updatedList = {...listCopy, tasks: curTasks};
     
-    const lists = this.state.lists.map((listname, index) => (
+    this.updateListInState(listId, updatedList);
+  }
+
+  toggleInput(listId) {
+    const listCopy = {...this.state.lists[listId]};
+    // toggle showInput value
+    const showInput = !listCopy.showInput;
+    const updatedList = {...listCopy, showInput}
+
+    this.updateListInState(listId, updatedList);
+  }
+  
+  render() {
+    const lists = this.state.lists.map((obj) => (
       <List 
-        key={index}
-        name={listname} 
+        key={obj.id}
+        listId={obj.id}
+        name={obj.listname}
+        tasks={obj.tasks}
+        showInput={obj.showInput}
+        onDelete={this.onDelete}
+        handleSave={this.handleSave}
+        toggleInput={this.toggleInput}
       />
     ));  
       return (
 
         <div>
-          <header class="logo">
+          <header className="logo">
             <a href="landing.html">
               <div className="logo-wrapper">
                 <div className="logo-check">

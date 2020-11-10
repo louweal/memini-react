@@ -24,16 +24,16 @@ class Task extends Component {
 
     render() {
 
-        const {id, title, category, onDelete} = this.props;
+        const {listId, id, title, category, onDelete} = this.props;
         
         return (
-            <li className="task">
+            <li className="task" onClick={(e) => {e.stopPropagation(); console.log("task selected!")}} >
                 <div className="task-head">
                     <div className={`task-category ${category}`}>
                     </div>
                     <div className="task-actions">
-                        <span className="remove-task" onClick={() => {onDelete(id)}}><i className="fas fa-check task-done"></i></span>
-                        <span className="remove-task" onClick={() => {onDelete(id)}}><i className="fas fa-trash-alt task-delete"></i></span>
+                        <span className="remove-task" onClick={() => {onDelete(listId, id)}}><i className="fas fa-check task-done"></i></span>
+                        <span className="remove-task" onClick={() => {onDelete(listId, id)}}><i className="fas fa-trash-alt task-delete"></i></span>
                     </div>
                 </div>
                 <input

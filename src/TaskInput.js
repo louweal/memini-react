@@ -28,10 +28,10 @@ class TaskInput extends Component {
         this.handleCategoryChange = this.handleCategoryChange.bind(this);
     }
 
-    handleSubmit(e) {
+    handleSubmit(listId, e) {
         e.preventDefault();
         // save all values currently in form
-        this.props.onSave({...this.state});
+        this.props.onSave(listId, {...this.state});
         // clear form
         this.setState({
             title: '',
@@ -56,11 +56,11 @@ class TaskInput extends Component {
     render() {
         //const {name} = this.props;
         const {title, category, selectedCategoryColor} = this.state;
-        const {onClose} = this.props;
+        const {listId, onClose} = this.props;
         return (
             <div className="input-area">
 
-                <form className='add-task-form' onSubmit={this.handleSubmit}>
+                <form className='add-task-form' onSubmit={(e) => this.handleSubmit(listId, e)}>
 
                     <div className="input-head">
                         <div className="input-category">
