@@ -17,6 +17,8 @@ ul {
     color: var(--dgrey);
 }
 
+/* lists */
+
 .lists {
     display: flex;
     justify-content: stretch;

@@ -5,7 +5,7 @@ import MeminiApp from './MeminiApp';
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
-  <React.StrictMode>
+  <React.StrictMode>  
     <MeminiApp />
   </React.StrictMode>,
   document.getElementById('root')
