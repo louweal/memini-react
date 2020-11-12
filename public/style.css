@@ -312,10 +312,6 @@ button.btn {
   .app-logo {
     display: none;
   }
-
-  .logo-check { /* fixed wrong position after scaling logo down .. */
-    transform: translate(3px, 5px);
-  }
 }
 
 
