@@ -20,7 +20,7 @@ class TaskInput extends Component {
         super(props);
         this.state = {
             title: '',
-            category: '',
+            category: 0,
             selectedCategoryColor: '#a79b8e'
         }
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -35,14 +35,14 @@ class TaskInput extends Component {
         // clear form
         this.setState({
             title: '',
-            category: '',
+            category: 0,
             selectedCategoryColor: '#a79b8e'
           })        
     }
 
     handleCategoryChange(cat, e) {
-        this.setState({selectedCategoryColor: categoryColors[cat]})
-        this.setState({[e.target.name]: e.target.value});
+        this.setState({selectedCategoryColor: categoryColors["cat"+cat]})
+        this.setState({[e.target.name]: +e.target.value});
     }
 
     handleChange(e) {
@@ -69,9 +69,9 @@ class TaskInput extends Component {
                                     type="radio" 
                                     name="category" 
                                     id={`${this.props.name}-cat4`} 
-                                    value="cat4"
-                                    checked={category==="cat4"}
-                                    onChange={(e) => this.handleCategoryChange('cat4',e)}
+                                    value="4"
+                                    checked={category===4}
+                                    onChange={(e) => this.handleCategoryChange(4, e)}
                                 />
                                 <span className="checkmark checkmark-cat4"></span>
                             </label>
@@ -80,9 +80,9 @@ class TaskInput extends Component {
                                     type="radio" 
                                     name="category" 
                                     id={`${this.props.name}-cat2`} 
-                                    value="cat2"
-                                    checked={category==="cat2"}
-                                    onChange={(e) => this.handleCategoryChange('cat2',e)}
+                                    value="2"
+                                    checked={category===2}
+                                    onChange={(e) => this.handleCategoryChange(2, e)}
                                 /> 
                                 <span className="checkmark checkmark-cat2"></span>
                             </label> 
@@ -91,9 +91,9 @@ class TaskInput extends Component {
                                     type="radio" 
                                     name="category" 
                                     id={`${this.props.name}-cat6`} 
-                                    value="cat6"
-                                    checked={category==="cat6"}
-                                    onChange={(e) => this.handleCategoryChange('cat6',e)}
+                                    value="6"
+                                    checked={category===6}
+                                    onChange={(e) => this.handleCategoryChange(6 ,e)}
                                 />
                                 <span className="checkmark checkmark-cat6"></span>
                             </label>                           
@@ -102,9 +102,9 @@ class TaskInput extends Component {
                                     type="radio" 
                                     name="category" 
                                     id={`${this.props.name}-cat3`} 
-                                    value="cat3"
-                                    checked={category==="cat3"}
-                                    onChange={(e) => this.handleCategoryChange('cat3',e)}
+                                    value="3"
+                                    checked={category===3}
+                                    onChange={(e) => this.handleCategoryChange(3 ,e)}
                                 />
                                 <span className="checkmark checkmark-cat3"></span>
                             </label>
@@ -113,9 +113,9 @@ class TaskInput extends Component {
                                     type="radio" 
                                     name="category" 
                                     id={`${this.props.name}-cat1`} 
-                                    value="cat1"
-                                    checked={category==="cat1"}
-                                    onChange={(e) => this.handleCategoryChange('cat1',e)}
+                                    value="1"
+                                    checked={category===1}
+                                    onChange={(e) => this.handleCategoryChange(1, e)}
                                 />
                                 <span className="checkmark checkmark-cat1"></span>
 
@@ -125,9 +125,9 @@ class TaskInput extends Component {
                                     type="radio" 
                                     name="category" 
                                     id={`${this.props.name}-cat5`} 
-                                    value="cat5"
-                                    checked={category==="cat5"}
-                                    onChange={(e) => this.handleCategoryChange('cat5',e)}
+                                    value="5"
+                                    checked={category===5}
+                                    onChange={(e) => this.handleCategoryChange(5, e)}
                                 />
                                 <span className="checkmark checkmark-cat5"></span>
                             </label> 

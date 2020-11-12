@@ -7,118 +7,129 @@ class MeminiApp extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      lists: [{
+      tasks: [{
         id: 0,
-        listname: "Today",
-        tasks: [{
-          id: 0,
-          title: "Fix React",
-          category: "cat1",
-          //onDelete
-        }],
-        nextTaskId: 1,
-        showInput: false
-      },
-      {
-        id: 1,
-        listname: "Tomorrow",
-        tasks: [{
-          id: 0,
-          title: "Make MasterMind Game",
-          category: "cat1",
-          //onDelete
-        },
-        {
-          id: 1,
-          title: "Eat",
-          category: "cat3",
-          //onDelete
-        }],
-        nextTaskId: 2,
-        showInput: false
+        listId: 0,
+        title: "Water the plants",
+        category: 1,
+        selected: false
       },
       {
         id: 2,
-        listname: "Upcoming",
-        tasks: [],
-        nextTaskId: 0,
-        showInput: false
+        listId: 2,
+        title: "Buy flowers",
+        category: 5,
+        selected: false
       },
       {
         id: 3,
-        listname: "Someday",
-        tasks: [],
-        nextTaskId: 0,
-        showInput: false
-      }]
+        listId: 0,
+        title: "Bookmark Memini",
+        category: 2,
+        selected: false
+      },
+      {
+        id: 4,
+        listId: 3,
+        title: "Plant a tree",
+        category: 3,
+        selected: false
+      },
+    ],
+      showInputs: [false, false, false, false],
+      nextTaskId: 6
     }
     this.handleSave = this.handleSave.bind(this);
+    this.handlePlace = this.handlePlace.bind(this);
     this.onDelete = this.onDelete.bind(this);
-    this.updateListInState = this.updateListInState.bind(this);
+    this.onSelect = this.onSelect.bind(this);
+    this.changeCategory = this.changeCategory.bind(this);
+    this.updateTask = this.updateTask.bind(this);
     this.toggleInput = this.toggleInput.bind(this);
   }
  
   handleSave(listId, task) {
-    // copy old list
-    const listCopy = {...this.state.lists[listId]};
-    // add the id to the task
-    const newTask = {...task, id: listCopy.nextTaskId}
-    // append the new task its task
-    const curTasks = [...listCopy.tasks, newTask];
-    // update list
-    const updatedList = {
-      ...listCopy, 
-      tasks: curTasks,
-      nextTaskId: listCopy.nextTaskId+1, 
-      showInput: false
-    };
-    this.updateListInState(listId, updatedList);
+    const id = this.state.nextTaskId;
+    this.setState({nextTaskId: id+1});
+    const newTask = {...task, id, listId, selected: false};
+    const tasks = [...this.state.tasks, newTask];
+    this.setState({tasks});
+
+    this.toggleInput(listId);
   }
 
-  updateListInState(listId, updatedList) {
-    // find index of list with this listId
-    var index = this.state.lists.findIndex(x => x.id === listId);
-    // make deep copy of state
-    var lists = [...this.state.lists];
-    // remove old list from copied state
-    lists.splice(index, 1);
-    // insert the updated list at its index position
-    lists.splice(index, 0, updatedList);
-    // set the real state
-    this.setState({lists});
+  handlePlace(listId) {
+    const tasks = this.state.tasks.map((task, id) => {
+      if(task.selected) {
+        task.listId = listId;
+        task.selected = false;
+      }
+      return task;
+    })
+    this.setState({tasks});
   }
 
-  onDelete(listId, id) {
-    // store list that has to be modified (deep copy)
-    const listCopy = {...this.state.lists[listId]};
-    // remove its task
-    const curTasks = listCopy.tasks.filter(task => task.id !== id);
-    // update list
-    const updatedList = {...listCopy, tasks: curTasks};
-    
-    this.updateListInState(listId, updatedList);
+  // helper function for updating a task
+  updateTask(task, taskIndex) {
+    // copy the state
+    const tasks = [...this.state.tasks];
+    // remove old task from copied state
+    tasks.splice(taskIndex, 1);
+    // insert the updated task at its index position
+    tasks.splice(taskIndex, 0, task);
+    // update state
+    this.setState({tasks});
+  }
+
+  onSelect(id) {
+    // find selected task in state list
+    var task = this.state.tasks.find(x => x.id === id);
+    // find index of the selected task
+    var taskIndex = this.state.tasks.findIndex(x => x.id === id);
+    // toggle selection state
+    task.selected = !task.selected;
+
+    this.updateTask(task, taskIndex); 
+
+  }
+
+  changeCategory(id) {
+    // find selected task in state list
+    var task = this.state.tasks.find(x => x.id === id);
+    // find index of the selected task
+    var taskIndex = this.state.tasks.findIndex(x => x.id === id);
+    // update task-category to the next category
+    task.category = (task.category+1)%7; // modulo number of categories +1 (categories are 1-indexed)
+
+    this.updateTask(task, taskIndex);
+  }
+
+  onDelete(id) {
+    const tasks = this.state.tasks.filter(t => t.id !== id);
+    this.setState({tasks});
   }
 
   toggleInput(listId) {
-    const listCopy = {...this.state.lists[listId]};
-    // toggle showInput value
-    const showInput = !listCopy.showInput;
-    const updatedList = {...listCopy, showInput}
-
-    this.updateListInState(listId, updatedList);
+    const showInputs = [...this.state.showInputs];
+    showInputs[listId] = !showInputs[listId]; 
+    this.setState({showInputs});  
   }
   
   render() {
-    const lists = this.state.lists.map((obj) => (
+    const listNames = ["Today", "Tomorrow", "Upcoming", "Someday"];
+    const lists = listNames.map((listname, index) => (
       <List 
-        key={obj.id}
-        listId={obj.id}
-        name={obj.listname}
-        tasks={obj.tasks}
-        showInput={obj.showInput}
+        key={index}
+        listId={index}
+        name={listname}
+        tasks={this.state.tasks}
+        showInput={this.state.showInputs[index]}
         onDelete={this.onDelete}
+        onSelect={this.onSelect}
         handleSave={this.handleSave}
+        handlePlace={this.handlePlace}
         toggleInput={this.toggleInput}
+        changeCategory={this.changeCategory}
       />
     ));  
       return (

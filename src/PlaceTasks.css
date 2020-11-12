@@ -1,0 +1,13 @@
+
+.place-area {
+    background-color: transparent;
+    border: 1px dashed grey;
+    font-size: .9em;
+    padding: 6px;
+    text-align: center;
+    margin: 18px auto;
+}
+
+.place-area:hover {
+    cursor: pointer;
+}

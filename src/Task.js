@@ -2,14 +2,18 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types'
 class Task extends Component {
     static defaultProps = {
-        onDelete() {}
+        onDelete() {},
+        onSelect() {},
+        changeCategory() {}
     }
 
     static propTypes = {
         id: PropTypes.number.isRequired,
         title: PropTypes.string.isRequired,
-        category: PropTypes.string.isRequired,
-        onDelete: PropTypes.func.isRequired
+        category: PropTypes.number.isRequired,
+        onDelete: PropTypes.func.isRequired,
+        onSelect: PropTypes.func.isRequired,
+        changeCategory: PropTypes.func.isRequired
     }
 
     constructor(props) {
@@ -23,23 +27,24 @@ class Task extends Component {
     }
 
     render() {
+        const {id, title, category, selected, onDelete, onSelect, changeCategory} = this.props;
+        const selectedClass = selected ? "task-selected": "";
 
-        const {listId, id, title, category, onDelete} = this.props;
-        
         return (
-            <li className="task" onClick={(e) => {e.stopPropagation(); console.log("task selected!")}} >
+            <li className={`task ${selectedClass}`} onClick={() => {onSelect(id)}} >
                 <div className="task-head">
-                    <div className={`task-category ${category}`}>
+                    <div className={`task-category cat${category}`} onClick={(e) => {e.stopPropagation(); changeCategory(id)}}>
                     </div>
                     <div className="task-actions">
-                        <span className="remove-task" onClick={() => {onDelete(listId, id)}}><i className="fas fa-check task-done"></i></span>
-                        <span className="remove-task" onClick={() => {onDelete(listId, id)}}><i className="fas fa-trash-alt task-delete"></i></span>
+                        <span className="remove-task" onClick={(e) => {e.stopPropagation(); onDelete(id)}}><i className="fas fa-check task-done"></i></span>
+                        <span className="remove-task" onClick={(e) => {e.stopPropagation(); onDelete(id)}}><i className="fas fa-trash-alt task-delete"></i></span>
                     </div>
                 </div>
                 <input
                     type="text"
                     name="title" 
                     defaultValue={title}
+                    onClick={(e) => {e.stopPropagation()}}
                     onChange={this.handleChange}
                  />
           </li>

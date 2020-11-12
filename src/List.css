@@ -10,15 +10,8 @@
     color: grey;
 }
 
-.add-area, .place-area, .task {
+.task {
     background-color: #ffffff;
     text-align: center;
     margin: 18px auto;
-}
-
-.place-area {
-    background-color: transparent;
-    border: 1px dashed grey;
-    font-size: .9em;
-    padding: 6px;
 }

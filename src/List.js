@@ -5,15 +5,22 @@ import AddTask from './AddTask';
 import './AddTask.css';
 import TaskInput from './TaskInput';
 import './TaskInput.css';
+import PlaceTasks from './PlaceTasks';
+import './PlaceTasks.css';
 //import PropTypes from 'prop-types';
 
 class List extends Component {
   render() {
-    // const {showInput} = this.state;
-    const {listId, name, handleSave, showInput, toggleInput} = this.props;
+    const {listId, name, tasks, handleSave, handlePlace, showInput, toggleInput} = this.props;
 
-    const tasks = this.props.tasks.map((task, id) => { // todo: replace map by 'filter'? 
-      return <Task key={task.id} {...task} listId={listId} onDelete={this.props.onDelete} />
+    const tasksComponents = tasks.filter(t => t.listId === listId).map((task, id) => {
+      return <Task 
+        key={task.id} {...task} 
+        listId={listId} 
+        onDelete={this.props.onDelete}
+        onSelect={this.props.onSelect}
+        changeCategory={this.props.changeCategory} 
+      />
     }); 
     
     return (
@@ -32,12 +39,10 @@ class List extends Component {
           />}
 
         <ul className="tasks">
-          {tasks}
+          {tasksComponents}
         </ul>
 
-          <div className="place-area">
-            <span>Place selected task(s) here</span>
-          </div>
+        <PlaceTasks listId={listId} tasks={tasks} onClick={handlePlace} />  
       </div>
     );
   }

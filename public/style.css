@@ -5,7 +5,7 @@
 /* temporary  */
 
 /* unclickable buttons! */ 
-.welcome .btn:hover, .join .btn:hover {
+.join .btn:hover {
   background-color: var(--lorange)
 }
 
@@ -232,7 +232,7 @@ button.btn {
   display: none;
 }
 
-@media (max-width: 600px) {
+@media only screen and (max-width: 600px) {
   #splash {
     display: block;
     width: 100vw;
@@ -308,7 +308,7 @@ button.btn {
   transition: ease-in-out, background-color 500ms ease-in-out;
 }
 
-@media (max-width: 600px) {
+@media only screen and (max-width: 600px) {
   .app-logo {
     display: none;
   }
@@ -346,14 +346,14 @@ button.btn {
 }
 
 .hero-img1 {
-  background-image: url(https://source.unsplash.com/goYWpqQU35M/640x426);
+  background-image: url(img/hero-img1-plant.jpg);
   background-position: left center;
 }
 
 .hero-img2 {
   right: 0;
   bottom: 140px;
-  background-image: url(https://source.unsplash.com/4Vg6ez9jaec/); 
+  background-image: url(img/hero-img2-plant.jpg); 
   background-position: 35% center;
 }
 
@@ -366,7 +366,7 @@ button.btn {
   background-color: #fff;
   padding: 40px 60px 50px 60px;
   margin: 0 auto;
-  transform: translateY(36%);
+  transform: translateY(22%);
   border: 1px solid rgba(0, 0, 0, .2);
 }
 
@@ -384,7 +384,7 @@ button.btn {
   background-color: white;
 }
 
-@media (max-width: 1000px) {
+@media only screen and (max-width: 1000px) {
   .hero-wrapper {
     height: auto;
     margin-bottom: 80px;
@@ -472,26 +472,26 @@ button.btn {
 }
 
 .hero-flower1 {
-  background-image: url(https://source.unsplash.com/ilL0SroV5yo/640x426);
+  background-image: url(img/hero-img1-flower.jpg);
   background-position: right center;
 }
 
 .hero-flower2 {
-  background-image: url(https://source.unsplash.com/WqPdQ0wvDiw);
+  background-image: url(img/hero-img2-flower.jpg);
 }
 
 /* Problem */
 
 .problem-img {  
-  background-image: url(https://source.unsplash.com/FGfiLTEfucA);
+  background-image: url(img/problem-plant.jpg);
   background-position: center center;
 }
 
 .problem-flower {
-  background-image: url(https://source.unsplash.com/Hr1XbMTvIeM);
+  background-image: url(img/problem-flower.jpg);
 }
 
-@media (max-width: 1000px) {
+@media only screen and (max-width: 1000px) {
   .problem-img {
     background-position: center 40%;
     /*transform: scale(0.75); */
@@ -506,15 +506,15 @@ button.btn {
 /* features */
 
 .features-img {
-  background-image: url(https://source.unsplash.com/EOJRrenjc4c/640x960);
+  background-image: url(img/features-plant.jpg);
   background-position: center 75%;
 }
 
 .features-flower {
-  background-image: url(https://source.unsplash.com/PVFpBUbIWK8);
+  background-image: url(img/features-flower.jpg);
 }
 
-@media (max-width: 1000px) {
+@media only screen and (max-width: 1000px) {
   .features-flower {
     background-position: center center;
     background-size: 100%;
@@ -553,7 +553,7 @@ button.btn {
   color: var(--lgrey);
 }
 
-@media (max-width: 1000px) {
+@media only screen and (max-width: 1000px) {
   .definition {
     margin-bottom: 80px; 
   }
@@ -569,16 +569,16 @@ button.btn {
 /* welcome */ 
 
 .welcome-img {
-  background-image: url(https://source.unsplash.com/6LrtvYdiZT4); /* 7gUdXVJEnOo/1080x1620); */
+  background-image: url(img/welcome-plant.jpg); /* 7gUdXVJEnOo/1080x1620); */
   background-position: center bottom;
 }
 
 .welcome-flower {
-  background-image: url(https://source.unsplash.com/V9pks_2Fqws);
+  background-image: url(img/welcome-flower.jpg);
   background-position: center;
 }
 
-@media (max-width: 1000px) {
+@media only screen and (max-width: 1000px) {
   .welcome-img {
     background-size: 100%;
   }
@@ -621,7 +621,7 @@ button.btn {
   color: var(--dgrey);
 }
 
-@media (max-width: 1000px) {
+@media only screen and (max-width: 1000px) {
   .problem, .features, .welcome, .join {
     flex-direction: column;
     margin-bottom: 75px;
@@ -686,7 +686,7 @@ button.btn {
 }
 
 
-@media (max-width: 600px) {
+@media only screen and (max-width: 600px) {
   .footer-content {
     margin: 40px auto 60px auto;
   }
