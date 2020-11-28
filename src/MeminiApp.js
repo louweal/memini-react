@@ -2,40 +2,13 @@ import React, { Component } from 'react';
 import './MeminiApp.css';
 import List from './List';
 import './List.css';
+import * as apiCalls from './api';
 
 class MeminiApp extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      tasks: [{
-        id: 0,
-        listId: 0,
-        title: "Water the plants",
-        category: 1,
-        selected: false
-      },
-      {
-        id: 2,
-        listId: 2,
-        title: "Buy flowers",
-        category: 5,
-        selected: false
-      },
-      {
-        id: 3,
-        listId: 0,
-        title: "Bookmark Memini",
-        category: 2,
-        selected: false
-      },
-      {
-        id: 4,
-        listId: 3,
-        title: "Plant a tree",
-        category: 3,
-        selected: false
-      },
-    ],
+      tasks: [],
       showInputs: [false, false, false, false],
       nextTaskId: 6
     }
@@ -48,64 +21,53 @@ class MeminiApp extends Component {
     this.toggleInput = this.toggleInput.bind(this);
   }
  
-  handleSave(listId, task) {
-    const id = this.state.nextTaskId;
-    this.setState({nextTaskId: id+1});
-    const newTask = {...task, id, listId, selected: false};
-    const tasks = [...this.state.tasks, newTask];
-    this.setState({tasks});
-
+  async handleSave(listId, task) {
+    let newTask = await apiCalls.createTask(listId, task);
+    this.setState({tasks: [...this.state.tasks, newTask]});
     this.toggleInput(listId);
   }
 
-  handlePlace(listId) {
-    const tasks = this.state.tasks.map((task, id) => {
+  async handlePlace(listId) {
+    let tasks = await Promise.all(this.state.tasks.map(async (task) => {
       if(task.selected) {
-        task.listId = listId;
-        task.selected = false;
+        task = await apiCalls.moveTask(task, listId);
       }
       return task;
-    })
-    this.setState({tasks});
-  }
-
-  // helper function for updating a task
-  updateTask(task, taskIndex) {
-    // copy the state
-    const tasks = [...this.state.tasks];
-    // remove old task from copied state
-    tasks.splice(taskIndex, 1);
-    // insert the updated task at its index position
-    tasks.splice(taskIndex, 0, task);
-    // update state
+    }))
+    console.log(tasks);
     this.setState({tasks});
   }
 
   onSelect(id) {
     // find selected task in state list
-    var task = this.state.tasks.find(x => x.id === id);
-    // find index of the selected task
-    var taskIndex = this.state.tasks.findIndex(x => x.id === id);
-    // toggle selection state
-    task.selected = !task.selected;
+    var updatedTask = this.state.tasks.find(t => t._id === id);
 
-    this.updateTask(task, taskIndex); 
+    const tasks = this.state.tasks.map(t => (
+      (t._id === updatedTask._id) 
+      ? {...t, selected: !t.selected}
+      : t
+    )) 
 
+    this.setState({tasks});
   }
 
-  changeCategory(id) {
+  async changeCategory(id) {
     // find selected task in state list
-    var task = this.state.tasks.find(x => x.id === id);
-    // find index of the selected task
-    var taskIndex = this.state.tasks.findIndex(x => x.id === id);
-    // update task-category to the next category
-    task.category = (task.category+1)%7; // modulo number of categories +1 (categories are 1-indexed)
+    var task = this.state.tasks.find(x => x._id === id);
 
-    this.updateTask(task, taskIndex);
+    let updatedTask = await apiCalls.updateCategory(task)
+
+    const tasks = this.state.tasks.map(t => (
+      (t._id === updatedTask._id) 
+      ? {...t, category: updatedTask.category}
+      : t
+    ))      
+    this.setState({tasks}) 
   }
 
-  onDelete(id) {
-    const tasks = this.state.tasks.filter(t => t.id !== id);
+  async onDelete(id) {
+    await apiCalls.removeTask(id)
+    const tasks = this.state.tasks.filter(t => t._id !== id);
     this.setState({tasks});
   }
 
@@ -114,7 +76,16 @@ class MeminiApp extends Component {
     showInputs[listId] = !showInputs[listId]; 
     this.setState({showInputs});  
   }
+
+  componentDidMount() {
+    this.loadTodos();
+  }
   
+  async loadTodos() {
+    let tasks = await apiCalls.getTasks();
+    this.setState({tasks})
+  }
+
   render() {
     const listNames = ["Today", "Tomorrow", "Upcoming", "Someday"];
     const lists = listNames.map((listname, index) => (

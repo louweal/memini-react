@@ -8,7 +8,7 @@ class Task extends Component {
     }
 
     static propTypes = {
-        id: PropTypes.number.isRequired,
+        _id: PropTypes.string.isRequired,
         title: PropTypes.string.isRequired,
         category: PropTypes.number.isRequired,
         onDelete: PropTypes.func.isRequired,
@@ -27,17 +27,17 @@ class Task extends Component {
     }
 
     render() {
-        const {id, title, category, selected, onDelete, onSelect, changeCategory} = this.props;
+        const {_id, title, category, selected, onDelete, onSelect, changeCategory} = this.props;
         const selectedClass = selected ? "task-selected": "";
 
         return (
-            <li className={`task ${selectedClass}`} onClick={() => {onSelect(id)}} >
+            <li className={`task ${selectedClass}`} onClick={() => {onSelect(_id)}} >
                 <div className="task-head">
-                    <div className={`task-category cat${category}`} onClick={(e) => {e.stopPropagation(); changeCategory(id)}}>
+                    <div className={`task-category cat${category}`} onClick={(e) => {e.stopPropagation(); changeCategory(_id)}}>
                     </div>
                     <div className="task-actions">
-                        <span className="remove-task" onClick={(e) => {e.stopPropagation(); onDelete(id)}}><i className="fas fa-check task-done"></i></span>
-                        <span className="remove-task" onClick={(e) => {e.stopPropagation(); onDelete(id)}}><i className="fas fa-trash-alt task-delete"></i></span>
+                        <span className="remove-task" onClick={(e) => {e.stopPropagation(); onDelete(_id)}}><i className="fas fa-check task-done"></i></span>
+                        <span className="remove-task" onClick={(e) => {e.stopPropagation(); onDelete(_id)}}><i className="fas fa-trash-alt task-delete"></i></span>
                     </div>
                 </div>
                 <input

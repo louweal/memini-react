@@ -13,9 +13,10 @@ class List extends Component {
   render() {
     const {listId, name, tasks, handleSave, handlePlace, showInput, toggleInput} = this.props;
 
-    const tasksComponents = tasks.filter(t => t.listId === listId).map((task, id) => {
+    const tasksComponents = tasks.filter(t => t.listId === listId).map((task) => {
       return <Task 
-        key={task.id} {...task} 
+        key={task._id}
+        {...task} 
         listId={listId} 
         onDelete={this.props.onDelete}
         onSelect={this.props.onSelect}

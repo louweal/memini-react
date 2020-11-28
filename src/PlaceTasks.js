@@ -14,7 +14,7 @@ class PlaceTasks extends Component {
         const {listId, tasks} = this.props;
         
         const numSelectedTasks = tasks.filter(t => t.selected).length; 
-        console.log(numSelectedTasks);
+
         var placeMessage = (numSelectedTasks===1) ? "Place selected task here": "Place selected tasks (" + numSelectedTasks + " tasks) here"; 
         var showPlaceMessage = (numSelectedTasks>0) ? placeMessage: "Select tasks to move here"; 
 
@@ -26,6 +26,6 @@ class PlaceTasks extends Component {
             </div>            
         )
     }
-}
+} 
 
 export default PlaceTasks;
