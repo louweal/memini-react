@@ -17,7 +17,6 @@ class MeminiApp extends Component {
     this.onDelete = this.onDelete.bind(this);
     this.onSelect = this.onSelect.bind(this);
     this.changeCategory = this.changeCategory.bind(this);
-    this.updateTask = this.updateTask.bind(this);
     this.toggleInput = this.toggleInput.bind(this);
   }
  
